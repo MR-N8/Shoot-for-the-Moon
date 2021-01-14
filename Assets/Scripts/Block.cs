@@ -59,6 +59,11 @@ public class Block : MonoBehaviour
             HandleHit();
         }
 
+        if (tag == "Breakable")
+        {
+            HandleHit();
+        }
+
     }
 
     private void HandleHit()
