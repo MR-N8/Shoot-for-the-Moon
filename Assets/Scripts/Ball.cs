@@ -42,6 +42,11 @@ public class Ball : MonoBehaviour
             LockBallToPaddle();
             LaunchOnMouseClick();
         }
+
+        else if (Input.GetButtonDown("Fire1"))
+        {
+            hasStarted = false;
+        }
     }
 
     private void LaunchOnMouseClick()
