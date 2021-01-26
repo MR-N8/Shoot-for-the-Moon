@@ -6,7 +6,7 @@ using TMPro;
 public class GameSession : MonoBehaviour
 {
     //config parameters 
-    [Range(0.1f,10f)][SerializeField] float gameSpeed = 1f;
+    //[Range(0.1f,10f)][SerializeField] float gameSpeed = 1f;
     [SerializeField] int pointsPerBlockDestroyed = 83;
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] bool isAutoPlayEnabled; 
@@ -20,7 +20,7 @@ public class GameSession : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("GameSession attached to: " + gameObject.name, gameObject);
+        //Debug.Log("GameSession attached to: " + gameObject.name, gameObject);
 
         int gameStatusCount = FindObjectsOfType<GameSession>().Length;
         if (gameStatusCount > 1)
@@ -44,7 +44,6 @@ public class GameSession : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Time.timeScale = gameSpeed;
         scoreText.text = ball.ballSpeed.ToString();
     }
 

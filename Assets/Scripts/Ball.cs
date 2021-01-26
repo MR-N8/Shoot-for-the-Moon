@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,7 +10,7 @@ public class Ball : MonoBehaviour
     [SerializeField] float xPush;
     [SerializeField] float yPush;
     [SerializeField] AudioClip[] ballSounds;
-    [SerializeField] float randomFactor = 0.2f;
+    [SerializeField] float boostOnHit;
 
     public float maxSpeed;
     public float ballSpeed;
@@ -20,7 +21,8 @@ public class Ball : MonoBehaviour
 
     //Cached component references 
     AudioSource myAudioSource;
-    Rigidbody2D myRidgidBody2D;
+    public Rigidbody2D myRidgidBody2D;
+    CinemachineVirtualCamera camera;
     BallTrail ballTrail;
 
     // Start is called before the first frame update
@@ -30,7 +32,7 @@ public class Ball : MonoBehaviour
         myAudioSource = GetComponent<AudioSource>();
         myRidgidBody2D = GetComponent<Rigidbody2D>();
         ballTrail = GetComponent<BallTrail>();
-        
+        camera = FindObjectOfType<CinemachineVirtualCamera>();
     }
 
     // Update is called once per frame
@@ -43,10 +45,6 @@ public class Ball : MonoBehaviour
             LaunchOnMouseClick();
         }
 
-        else if (Input.GetButtonDown("Fire1"))
-        {
-            hasStarted = false;
-        }
     }
 
     private void LaunchOnMouseClick()
@@ -68,7 +66,7 @@ public class Ball : MonoBehaviour
     public void AddMaxSpeed()
     {
         Debug.Log("AddMaxSpeed called" + gameObject.name);
-        maxSpeed += 10f;
+        maxSpeed += 6f;
         //ballTrail.AddNumBallz();
         // want to add more ball trail as max speed rises
     }
@@ -102,15 +100,12 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Vector2 velocityTweak = new Vector2
-            (Random.Range(0f, randomFactor),
-            Random.Range(0f,randomFactor));
 
         if (hasStarted)
         {
             AudioClip clip = ballSounds[UnityEngine.Random.Range(0, ballSounds.Length)];
             myAudioSource.PlayOneShot(clip);
-            myRidgidBody2D.velocity += velocityTweak;
+            //myRidgidBody2D.velocity += new Vector2(0,boostOnHit);
         }
     }
 

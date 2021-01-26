@@ -19,6 +19,7 @@ public class FollowBehavior : MonoBehaviour
     {
         cam = FindObjectOfType<Camera>();
         ball = FindObjectOfType<Ball>();
+
     }
 
     // Update is called once per frame
@@ -27,10 +28,10 @@ public class FollowBehavior : MonoBehaviour
 
         transform.position = new Vector3(trackingTarget.position.x, trackingTarget.position.y + yOffset,trackingTarget.position.z + zOffset);
 
-        if (ball.maxSpeed > 21)
-            cam.orthographicSize = 20f;
-        if (ball.maxSpeed < 21)
-            cam.orthographicSize = 10f;
+        //if (ball.maxSpeed > 21)
+            //cam.orthographicSize = 20f;
+        //if (ball.maxSpeed < 21)
+            //cam.orthographicSize = 10f;
 
         if (Input.GetKey(KeyCode.KeypadPlus))
             cam.orthographicSize -= .1f;

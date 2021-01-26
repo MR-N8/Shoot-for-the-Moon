@@ -8,9 +8,11 @@ public class NewPaddle : MonoBehaviour
 
     //config params 
    
-    [SerializeField] float moveSpeed = 10f;
+    float moveSpeed = 30f;
     [SerializeField] float padding = 0f;
     [SerializeField] int tilt = 15;
+
+    
 
     float xMin = -12f;
     float xMax = 22f;
