@@ -64,15 +64,6 @@ public class SuckManager : MonoBehaviour
                 //ball.myRidgidBody2D.collisionDetectionMode = false; 
 
                 }
-            
         }
-
     }
-
-    private void OnDestroy()
-    {
-        instance = null;
-    }
-
-
 }
