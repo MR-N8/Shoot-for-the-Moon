@@ -65,7 +65,7 @@ public class Ball : MonoBehaviour
 
     public void AddMaxSpeed()
     {
-        Debug.Log("AddMaxSpeed called" + gameObject.name);
+        //Debug.Log("AddMaxSpeed called" + gameObject.name);
         maxSpeed += 6f;
         //ballTrail.AddNumBallz();
         // want to add more ball trail as max speed rises

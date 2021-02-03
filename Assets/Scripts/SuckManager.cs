@@ -16,7 +16,7 @@ public class SuckManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Debug.Log("instance var fired");
+        //Debug.Log("instance var fired");
         instance = this;
     }
 

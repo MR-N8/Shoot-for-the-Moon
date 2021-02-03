@@ -55,7 +55,7 @@ public class Block : MonoBehaviour
 
         if (tag == "Max Speed")
         {
-            Debug.Log("Max Speed HandleHit Called");
+            //Debug.Log("Max Speed HandleHit Called");
             HandleHit();
         }
 

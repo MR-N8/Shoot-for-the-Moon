@@ -25,7 +25,7 @@ public class CinemachineSwitcher : MonoBehaviour
     {
         if(collision.gameObject.name == "Ball")
         {
-            Debug.Log("Ball Entered");
+            //Debug.Log("Ball Entered");
             thisCamera.Priority = 1;
         }
         
