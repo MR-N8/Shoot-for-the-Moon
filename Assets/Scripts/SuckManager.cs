@@ -55,7 +55,6 @@ public class SuckManager : MonoBehaviour
                 if(forceDirection.y < 0)
                 {
                     ball.myRidgidBody2D.AddForce(forceDirection * 100);
-
                 }
 
                 
