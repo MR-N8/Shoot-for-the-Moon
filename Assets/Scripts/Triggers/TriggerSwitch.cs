@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TriggerSwitch : MonoBehaviour
 {
-    [SerializeField] Color switchON;
-    [SerializeField] Color switchOff;
+    private Color switchON = new Color(0, 0, 0, 1);// black
+    private Color switchOff = new Color(1, 1, 1, 1);//white
 
     [SerializeField] SpriteRenderer spriteRenderer;
     

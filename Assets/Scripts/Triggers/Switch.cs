@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Switch : MonoBehaviour
 {
-    [SerializeField] Color switchON;
-    [SerializeField] Color switchOff;
+    public Color switchON = new Color(0, 0, 0, 1);
+    public Color switchOff = new Color(1, 1, 1, 1);
 
     [SerializeField] SpriteRenderer spriteRenderer;
     
