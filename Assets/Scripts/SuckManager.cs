@@ -54,7 +54,7 @@ public class SuckManager : MonoBehaviour
                 Vector2 forceDirection = (closestPaddle.transform.position - ball.transform.position).normalized;
                 if(forceDirection.y < 0)
                 {
-                    ball.myRidgidBody2D.AddForce(forceDirection * 100);
+                    ball.myRidgidBody2D.AddForce(forceDirection * 6000 *Time.deltaTime); //was 100 before
                 }
 
                 
