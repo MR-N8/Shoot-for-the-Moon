@@ -24,6 +24,7 @@ public class Block : MonoBehaviour
         level = FindObjectOfType<Level>();
         gamestatus = FindObjectOfType<GameSession>();
         ball = FindObjectOfType<Ball>();
+
         //CountBreakableBlocks();
     }
 
@@ -125,6 +126,7 @@ public class Block : MonoBehaviour
     private void PlayBlockDestroySFX()
     {
         gamestatus.AddToScore();
+        Debug.Log(Camera.main);
         AudioSource.PlayClipAtPoint(destroyBlockSound, Camera.main.transform.position);
     }
 

@@ -295,6 +295,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1ccb3a01cfc6494a8fb0bde3ba9ef20, type: 3}
+--- !u!198 &94203981 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: -7162550298422987367, guid: d4b2a26b83618ca47b59e126159b4ac9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8036990090672195927}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &121012986 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4809242709110359569, guid: b1ccb3a01cfc6494a8fb0bde3ba9ef20,
@@ -6320,6 +6326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ball: {fileID: 43210697}
   ballSprite: {fileID: 43210696}
+  ballParticles: {fileID: 94203981}
   paddles:
   - {fileID: 2139365113}
   - {fileID: 148522290}
@@ -6329,6 +6336,9 @@ MonoBehaviour:
   - {fileID: 1954809625}
   - {fileID: 243317097}
   - {fileID: 273955320}
+  camera1: {fileID: 1924524923}
+  regularColor: {r: 0, g: 0, b: 0, a: 1}
+  suckColor: {r: 1, g: 0, b: 0, a: 1}
   closestPaddle: {fileID: 0}
 --- !u!4 &1568116230
 Transform:
@@ -8364,6 +8374,7 @@ GameObject:
   - component: {fileID: 1924524926}
   - component: {fileID: 1924524925}
   - component: {fileID: 1924524924}
+  - component: {fileID: 1924524929}
   m_Layer: 0
   m_Name: CM vcam0.1
   m_TagString: Untagged
@@ -8480,6 +8491,18 @@ Transform:
   m_Father: {fileID: 1993251063}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1924524929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924524923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f8e23ddebd4802439c97d9ca69399e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1925679792
 PrefabInstance:
   m_ObjectHideFlags: 0

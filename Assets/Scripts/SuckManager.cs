@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using Cinemachine;
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,13 @@ public class SuckManager : MonoBehaviour
 
     [SerializeField] private Ball ball;
     [SerializeField] private SpriteRenderer ballSprite;
+    [SerializeField] private ParticleSystem ballParticles; 
     [SerializeField] private NewPaddle[] paddles;
-   
+    [SerializeField] private GameObject camera1;
+
+    [SerializeField] private Color regularColor = Color.black;
+    [SerializeField] private Color suckColor = Color.black;
+
 
     public NewPaddle closestPaddle = null;
     public static SuckManager instance;
@@ -20,6 +26,8 @@ public class SuckManager : MonoBehaviour
         instance = this;
     }
 
+    private float colorValue = 0;
+    private const float FADE_TIME = 0.5f;
     void Update()
     {
         // to get the balls distance from the paddle 
@@ -44,7 +52,11 @@ public class SuckManager : MonoBehaviour
 
         if (Input.GetButton("Fire1"))
         {
-            ballSprite.color = Color.red;
+            colorValue += Time.deltaTime/FADE_TIME;
+            ballParticles.Play();
+            camera1.GetComponent<ShakeBehavior>().TriggerShake();
+            
+
 
             if (closestPaddle != null)
             {
@@ -53,15 +65,17 @@ public class SuckManager : MonoBehaviour
                 Vector2 forceDirection = (closestPaddle.transform.position - ball.transform.position).normalized;
                 if(forceDirection.y < 0)
                 {
-                    ball.myRidgidBody2D.AddForce(forceDirection * 6000 *Time.deltaTime); //was 100 before
+                    ball.myRidgidBody2D.AddForce(forceDirection * 9000 *Time.deltaTime); //was 100 before
                 }
             }
         }
 
         else
         {
-            ballSprite.color = Color.black;
+            colorValue -= Time.deltaTime / FADE_TIME;
+            ballParticles.Stop();
         }
-
+        colorValue = Mathf.Min(1, Mathf.Max(0, colorValue));
+        ballSprite.color = Color.Lerp(regularColor, suckColor, colorValue);
     }
 }
