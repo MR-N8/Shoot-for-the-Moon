@@ -11,7 +11,7 @@ public class SuckManager : MonoBehaviour
     [SerializeField] private SpriteRenderer ballSprite;
     [SerializeField] private ParticleSystem ballParticles; 
     [SerializeField] private NewPaddle[] paddles;
-    [SerializeField] private GameObject camera1;
+    [SerializeField] private CinemachineBrain brainCamera;
 
     [SerializeField] private Color regularColor = Color.black;
     [SerializeField] private Color suckColor = Color.black;
@@ -54,10 +54,15 @@ public class SuckManager : MonoBehaviour
         {
             colorValue += Time.deltaTime/FADE_TIME;
             ballParticles.Play();
-            camera1.GetComponent<ShakeBehavior>().TriggerShake();
-            
-
-
+            GameObject camObject = brainCamera.ActiveVirtualCamera.VirtualCameraGameObject;
+            ShakeBehavior currentCameraShakeBehavior = camObject.GetComponent<ShakeBehavior>();
+            if (currentCameraShakeBehavior != null) {
+                currentCameraShakeBehavior.TriggerShake();
+            }
+            else
+            {
+                Debug.LogError("No shake behavior on virtual camera: " + camObject.name);
+            }
             if (closestPaddle != null)
             {
                 //Debug.Log($"!!!!closest paddle!!!! {closestPaddle.name}");
@@ -65,7 +70,7 @@ public class SuckManager : MonoBehaviour
                 Vector2 forceDirection = (closestPaddle.transform.position - ball.transform.position).normalized;
                 if(forceDirection.y < 0)
                 {
-                    ball.myRidgidBody2D.AddForce(forceDirection * 9000 *Time.deltaTime); //was 100 before
+                    ball.myRidgidBody2D.AddForce(forceDirection * 30000 *Time.deltaTime); //was 100 before
                 }
             }
         }
