@@ -9,6 +9,7 @@ public class Block : MonoBehaviour
     [SerializeField] AudioClip destroyBlockSound;
     [SerializeField] GameObject blockSparklesVfx;
     [SerializeField] Sprite[] hitSprites;
+    
 
     // cached refrence 
     Level level;
@@ -84,6 +85,7 @@ public class Block : MonoBehaviour
 
     private void HandleBusterHit()
     {
+
        if(ball.ballSpeed >= 30)
         {
             Debug.Log("Buster count added!");

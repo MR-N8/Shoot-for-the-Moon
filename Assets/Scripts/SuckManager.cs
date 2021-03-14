@@ -13,7 +13,7 @@ public class SuckManager : MonoBehaviour
     [SerializeField] private NewPaddle[] paddles;
     [SerializeField] private CinemachineBrain brainCamera;
 
-    [SerializeField] private Color regularColor = Color.black;
+    [SerializeField] private Color regularColor = Color.white;
     [SerializeField] private Color suckColor = Color.black;
 
 
@@ -28,6 +28,7 @@ public class SuckManager : MonoBehaviour
 
     private float colorValue = 0;
     private const float FADE_TIME = 0.5f;
+    public bool IsSucking { get; private set; }
     void Update()
     {
         // to get the balls distance from the paddle 
@@ -52,6 +53,7 @@ public class SuckManager : MonoBehaviour
 
         if (Input.GetButton("Fire1"))
         {
+            IsSucking = true;
             colorValue += Time.deltaTime/FADE_TIME;
             ballParticles.Play();
             GameObject camObject = brainCamera.ActiveVirtualCamera.VirtualCameraGameObject;
@@ -74,9 +76,9 @@ public class SuckManager : MonoBehaviour
                 }
             }
         }
-
         else
         {
+            IsSucking = false;
             colorValue -= Time.deltaTime / FADE_TIME;
             ballParticles.Stop();
         }

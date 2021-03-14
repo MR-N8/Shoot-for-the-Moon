@@ -35,7 +35,6 @@ public class CinemachineSwitcher : MonoBehaviour
     {
         if (collision.gameObject.name == "Ball")
         {
-            Debug.Log("Ball Exited");
             thisCamera.Priority = 0;
         }
     }

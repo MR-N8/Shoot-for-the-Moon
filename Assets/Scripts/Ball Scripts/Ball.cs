@@ -1,12 +1,12 @@
 ﻿using Cinemachine;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 
 public class Ball : MonoBehaviour
 {
     //config parameters
-    [SerializeField] NewPaddle paddle1;
+    [SerializeField] NewPaddle currentPaddle;
     [SerializeField] float xPush;
     [SerializeField] float yPush;
     [SerializeField] AudioClip[] ballSounds;
@@ -16,8 +16,8 @@ public class Ball : MonoBehaviour
     public float ballSpeed;
 
     //state
-    Vector2 paddleToBallVector;
-    public bool hasStarted = false;
+    private static readonly Vector2 paddleToBallVector = new Vector2(0,0.9f);
+    public bool isLaunched = false;
 
     //Cached component references 
     AudioSource myAudioSource;
@@ -28,38 +28,34 @@ public class Ball : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        paddleToBallVector = transform.position - paddle1.transform.position;
         myAudioSource = GetComponent<AudioSource>();
         myRidgidBody2D = GetComponent<Rigidbody2D>();
         ballTrail = GetComponent<BallTrail>();
         camera = FindObjectOfType<CinemachineVirtualCamera>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         // original meathod calls from the course 
-        if (!hasStarted)
+        if (!isLaunched)
         {
             LockBallToPaddle();
             LaunchOnMouseClick();
         }
-
     }
 
     private void LaunchOnMouseClick()
     {
-            if (Input.GetButtonDown("Fire1"))
-            {
-            hasStarted = true;
+        if (Input.GetButtonDown("Fire1"))
+        {
+            isLaunched = true;
             GetComponent<Rigidbody2D>().velocity = new Vector2(xPush, yPush);
-
         }
     }
 
     private void LockBallToPaddle()
     {
-        Vector2 paddlePos = new Vector2(paddle1.transform.position.x, paddle1.transform.position.y);
+        Vector2 paddlePos = new Vector2(currentPaddle.transform.position.x, currentPaddle.transform.position.y);
         transform.position = paddlePos + paddleToBallVector;
     }
 
@@ -80,18 +76,18 @@ public class Ball : MonoBehaviour
         {
             myRidgidBody2D.velocity = myRidgidBody2D.velocity.normalized * maxSpeed;
         }
-        
+
 
     }
 
     public void KillSpeed()
     {
-        StartCoroutine(KillSpeedRoutine());    
+        StartCoroutine(KillSpeedRoutine());
     }
 
     private IEnumerator KillSpeedRoutine()
     {
-            for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 15; i++)
         {
             myRidgidBody2D.velocity *= 0.5f;
             yield return new WaitForFixedUpdate();
@@ -101,12 +97,17 @@ public class Ball : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (hasStarted && collision.enabled)
+        if (isLaunched && collision.enabled)
         {
-            AudioClip clip = ballSounds[UnityEngine.Random.Range(0, ballSounds.Length)];
+            NewPaddle newPaddle = collision.gameObject.GetComponent<NewPaddle>();
+            if (newPaddle != null && Input.GetButton("Catch"))
+            {
+                currentPaddle = newPaddle;
+                isLaunched = false;
+            }
+            AudioClip clip = ballSounds[Random.Range(0, ballSounds.Length)];
             myAudioSource.PlayOneShot(clip);
             //myRidgidBody2D.velocity += new Vector2(0,boostOnHit);
         }
     }
-
 }

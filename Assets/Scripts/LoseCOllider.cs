@@ -6,11 +6,10 @@ using UnityEngine.SceneManagement;
 public class LoseCOllider : MonoBehaviour
 {
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        SceneManager.LoadScene("Game Over");
+        Debug.Log("whoooooo");
+        SceneManager.LoadScene("Success Screen");
     }
-
-
 
 }

@@ -46,23 +46,19 @@ public class BallTrail : MonoBehaviour
 
     private void Update()
     {
-        if (ball.hasStarted == true)
+        for (int i = 0; i < num_ballz; i++)
         {
-            for (int i = 0; i < num_ballz; i++)
-            {
-                BallInfo info = ball_infos[i];
-                ball_transforms[i].position = info.position;
-                float alpha = 1f - ((float)i) / (float)num_ballz;
-                ball_srs[i].color = new Color(info.color.r, info.color.g, info.color.b, alpha);
-            }
-            ball_infos.Insert(0, new BallInfo()
-            {
-                position = mainRenderer.transform.position,
-                color = mainRenderer.color
-            });
-            ball_infos.RemoveAt(ball_infos.Count - 1);
+            BallInfo info = ball_infos[i];
+            ball_transforms[i].position = info.position;
+            float alpha = 1f - ((float)i) / (float)num_ballz;
+            ball_srs[i].color = new Color(info.color.r, info.color.g, info.color.b, alpha);
         }
-            
+        ball_infos.Insert(0, new BallInfo()
+        {
+            position = mainRenderer.transform.position,
+            color = mainRenderer.color
+        });
+        ball_infos.RemoveAt(ball_infos.Count - 1);
     }
 
     private struct BallInfo
