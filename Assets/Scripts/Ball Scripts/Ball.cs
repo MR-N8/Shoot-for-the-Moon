@@ -20,6 +20,8 @@ public class Ball : MonoBehaviour
     public float ballSpeed;
     public bool ballIsLocked = true;
 
+    public event Action maxSpeedChanged;
+
     //state
     private static readonly Vector2 paddleToBallVector = new Vector2(0,1.3f);
     public bool isLaunched = false;
@@ -83,7 +85,7 @@ public class Ball : MonoBehaviour
           if(SuckManager.instance.IsSucking == true)
             {
                 Debug.Log("charging");
-                yPush = Mathf.Clamp(yPush+(maxSpeed*Time.deltaTime), 0, maxSpeed);
+                yPush = Mathf.Clamp(yPush+(maxSpeed*Time.deltaTime*1.75f), 0, maxSpeed);
             }
         }
     }
@@ -92,6 +94,7 @@ public class Ball : MonoBehaviour
     {
         //Debug.Log("AddMaxSpeed called" + gameObject.name);
         maxSpeed += 6f;
+        maxSpeedChanged?.Invoke();
         //ballTrail.AddNumBallz();
         // want to add more ball trail as max speed rises
     }
