@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Ball : MonoBehaviour
 {
@@ -60,15 +59,44 @@ public class Ball : MonoBehaviour
         }
     }
 
+    private const float PULLBACK_SCALE = 0.1f;
+    private Coroutine slapRoutine = null;
     private void LaunchOnMouseClick()
     {
         if (Input.GetButtonUp("Fire1"))
         {
+            if (slapRoutine != null)
+            {
+                StopCoroutine(slapRoutine);
+                slapRoutine = null;
+            }
+            slapRoutine = StartCoroutine(SlapRoutine());
+        }
+
+        IEnumerator SlapRoutine()
+        {
+            float startDistance = yPush * PULLBACK_SCALE;
+            float elapsedTime = 0;
+            float progress = 0;
+            while (progress <= 1)
+            {
+                elapsedTime += Time.deltaTime;
+                progress = elapsedTime / 0.03f;
+                currentPaddle.SetPullbackDistance(Mathf.Lerp(startDistance, -0.15f, progress));
+                yield return null;
+            }
+            yield return null;
+            currentPaddle.SetPullbackDistance(Mathf.Lerp(startDistance, -0.075f, progress));
+            yield return null;
+            currentPaddle.SetPullbackDistance(0);
+
             isLaunched = true;
             ballIsLocked = false;
+            PlayBallSound();
             Vector3 pushVector = currentPaddle.transform.TransformDirection(new Vector3(0, yPush, 0));
             GetComponent<Rigidbody2D>().velocity = pushVector;
             yPush = 0f;
+            slapRoutine = null;
         }
     }
 
@@ -84,8 +112,12 @@ public class Ball : MonoBehaviour
         {
           if(SuckManager.instance.IsSucking == true)
             {
-                Debug.Log("charging");
+                //Debug.Log("charging");
                 yPush = Mathf.Clamp(yPush+(maxSpeed*Time.deltaTime*1.75f), 0, maxSpeed);
+                if(currentPaddle != null)
+                {
+                    currentPaddle.SetPullbackDistance(yPush * PULLBACK_SCALE);
+                }
             }
         }
     }
@@ -108,8 +140,6 @@ public class Ball : MonoBehaviour
         {
             myRidgidBody2D.velocity = myRidgidBody2D.velocity.normalized * maxSpeed;
         }
-
-
     }
 
     public void KillSpeed()
@@ -137,9 +167,14 @@ public class Ball : MonoBehaviour
                 currentPaddle = newPaddle;
                 isLaunched = false;
             }
-            AudioClip clip = ballSounds[UnityEngine.Random.Range(0, ballSounds.Length)];
-            myAudioSource.PlayOneShot(clip);
+            PlayBallSound();
             //myRidgidBody2D.velocity += new Vector2(0,boostOnHit);
         }
+    }
+
+    private void PlayBallSound()
+    {
+        AudioClip clip = ballSounds[UnityEngine.Random.Range(0, ballSounds.Length)];
+        myAudioSource.PlayOneShot(clip);
     }
 }

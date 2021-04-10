@@ -25,11 +25,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643719370547714215}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2208159376672505650}
+  m_Father: {fileID: 4782122367296410410}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6365304732652695200
@@ -134,7 +134,7 @@ Transform:
   m_LocalPosition: {x: -0.32093, y: -31.98741, z: 1085.5974}
   m_LocalScale: {x: 1, y: 0.7, z: 1}
   m_Children:
-  - {fileID: 3292792986022898105}
+  - {fileID: 4782122367296410410}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.02}
@@ -236,6 +236,7 @@ MonoBehaviour:
   padding: 0
   tilt: 15
   paddleSpriteRenderer: {fileID: 6365304732652695200}
+  slapper: {fileID: 4782122367296410410}
 --- !u!251 &6145685931799575827
 PlatformEffector2D:
   m_ObjectHideFlags: 0
@@ -270,3 +271,34 @@ MonoBehaviour:
   myAnimationController: {fileID: 1902186776660794320}
   ballHitsPaddleParticles: {fileID: 100000, guid: 9cce9d8f64e8f1345a798d9a29de899a,
     type: 3}
+--- !u!1 &6070017569847121918
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4782122367296410410}
+  m_Layer: 0
+  m_Name: Slapper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4782122367296410410
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6070017569847121918}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3292792986022898105}
+  m_Father: {fileID: 2208159376672505650}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

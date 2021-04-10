@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class NewPaddle : MonoBehaviour
 {
-
     //config params 
-   
     float moveSpeed = 25f;
     [SerializeField] float padding = 0f;
     [SerializeField] int tilt = 15;
-    [SerializeField] private SpriteRenderer paddleSpriteRenderer; 
-    
+    [SerializeField] private SpriteRenderer paddleSpriteRenderer;
+
+    [SerializeField] Transform slapper;
 
     float xMin = -12f;
     float xMax = 22f;
@@ -90,5 +86,10 @@ public class NewPaddle : MonoBehaviour
         xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + padding;
         xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - padding;
 
+    }
+
+    public void SetPullbackDistance(float distance)
+    {
+        slapper.localPosition = new Vector3(0, -distance, 0);
     }
 }
