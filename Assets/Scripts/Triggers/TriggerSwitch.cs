@@ -14,7 +14,6 @@ public class TriggerSwitch : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("switch OFF on start");
         spriteRenderer.color = switchOff;
     }
 

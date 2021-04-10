@@ -10,7 +10,6 @@ public class BouncePad_Animations : MonoBehaviour
     {
         if (collision.enabled)
         {
-            Debug.Log("paddle collison enabled");
             myAnimationController.SetTrigger("BallHitTop");
         }
         

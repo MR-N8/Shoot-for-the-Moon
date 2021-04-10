@@ -83,6 +83,6 @@ public class SuckManager : MonoBehaviour
             ballParticles.Stop();
         }
         colorValue = Mathf.Min(1, Mathf.Max(0, colorValue));
-        ballSprite.color = Color.Lerp(regularColor, suckColor, colorValue);
+        ballSprite.color = Color.Lerp(regularColor, suckColor, colorValue); 
     }
 }

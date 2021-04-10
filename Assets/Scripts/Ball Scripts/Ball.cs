@@ -1,22 +1,27 @@
 ﻿using Cinemachine;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class Ball : MonoBehaviour
 {
+    public static Ball instance;
+    
     //config parameters
     [SerializeField] NewPaddle currentPaddle;
-    [SerializeField] float xPush;
-    [SerializeField] float yPush;
+    public float yPush;
     [SerializeField] AudioClip[] ballSounds;
     [SerializeField] float boostOnHit;
+    
+
 
     public float maxSpeed;
     public float ballSpeed;
+    public bool ballIsLocked = true;
 
     //state
-    private static readonly Vector2 paddleToBallVector = new Vector2(0,0.9f);
+    private static readonly Vector2 paddleToBallVector = new Vector2(0,1.3f);
     public bool isLaunched = false;
 
     //Cached component references 
@@ -25,7 +30,15 @@ public class Ball : MonoBehaviour
     CinemachineVirtualCamera camera;
     BallTrail ballTrail;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        if(instance != null)
+        {
+            Debug.LogError("There is more than one ball fuck face: "+ this.name);
+        }
+        instance = this;
+    }
+
     void Start()
     {
         myAudioSource = GetComponent<AudioSource>();
@@ -41,22 +54,38 @@ public class Ball : MonoBehaviour
         {
             LockBallToPaddle();
             LaunchOnMouseClick();
+            ChargeShot();
         }
     }
 
     private void LaunchOnMouseClick()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonUp("Fire1"))
         {
             isLaunched = true;
-            GetComponent<Rigidbody2D>().velocity = new Vector2(xPush, yPush);
+            ballIsLocked = false;
+            Vector3 pushVector = currentPaddle.transform.TransformDirection(new Vector3(0, yPush, 0));
+            GetComponent<Rigidbody2D>().velocity = pushVector;
+            yPush = 0f;
         }
     }
 
     private void LockBallToPaddle()
     {
-        Vector2 paddlePos = new Vector2(currentPaddle.transform.position.x, currentPaddle.transform.position.y);
-        transform.position = paddlePos + paddleToBallVector;
+        transform.position = currentPaddle.transform.TransformPoint(paddleToBallVector);
+        ballIsLocked = true;
+    }
+
+    private void ChargeShot()
+    {
+        if (isLaunched == false)
+        {
+          if(SuckManager.instance.IsSucking == true)
+            {
+                Debug.Log("charging");
+                yPush = Mathf.Clamp(yPush+(maxSpeed*Time.deltaTime), 0, maxSpeed);
+            }
+        }
     }
 
     public void AddMaxSpeed()
@@ -100,12 +129,12 @@ public class Ball : MonoBehaviour
         if (isLaunched && collision.enabled)
         {
             NewPaddle newPaddle = collision.gameObject.GetComponent<NewPaddle>();
-            if (newPaddle != null && Input.GetButton("Catch"))
+            if (newPaddle != null && Input.GetButton("Fire1"))
             {
                 currentPaddle = newPaddle;
                 isLaunched = false;
             }
-            AudioClip clip = ballSounds[Random.Range(0, ballSounds.Length)];
+            AudioClip clip = ballSounds[UnityEngine.Random.Range(0, ballSounds.Length)];
             myAudioSource.PlayOneShot(clip);
             //myRidgidBody2D.velocity += new Vector2(0,boostOnHit);
         }

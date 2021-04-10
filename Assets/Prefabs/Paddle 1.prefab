@@ -235,6 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   padding: 0
   tilt: 15
+  paddleSpriteRenderer: {fileID: 6365304732652695200}
 --- !u!251 &6145685931799575827
 PlatformEffector2D:
   m_ObjectHideFlags: 0

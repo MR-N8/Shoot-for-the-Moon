@@ -51,13 +51,11 @@ public class Block : MonoBehaviour
 
         if (tag == "Dud ")
         {
-            Debug.Log("Dud HandleHit Called");
             HandleHit();
         }
 
         if (tag == "Max Speed")
         {
-            //Debug.Log("Max Speed HandleHit Called");
             HandleHit();
         }
 
@@ -128,7 +126,7 @@ public class Block : MonoBehaviour
     private void PlayBlockDestroySFX()
     {
         gamestatus.AddToScore();
-        Debug.Log(Camera.main);
+        //Debug.Log(Camera.main);
         AudioSource.PlayClipAtPoint(destroyBlockSound, Camera.main.transform.position);
     }
 
