@@ -141,8 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPaddle: {fileID: 0}
-  xPush: 2
-  yPush: 7.4
+  yPush: 0
   ballSounds:
   - {fileID: 8300000, guid: af779e8e1e262264f8e4eb003c8c733b, type: 3}
   - {fileID: 8300000, guid: 9e862fdc7c7844c4c8d837585d3a8637, type: 3}
@@ -151,6 +150,7 @@ MonoBehaviour:
   boostOnHit: 0
   maxSpeed: 8
   ballSpeed: 0
+  ballIsLocked: 0
   isLaunched: 0
   myRidgidBody2D: {fileID: 0}
 --- !u!82 &1421960366
@@ -297,7 +297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainRenderer: {fileID: 8036990090225380699}
-  num_ballz: 50
+  num_ballz: 10
 --- !u!198 &-7162550298422987367
 ParticleSystem:
   m_ObjectHideFlags: 0

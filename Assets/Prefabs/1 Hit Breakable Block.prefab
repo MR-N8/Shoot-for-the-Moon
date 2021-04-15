@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f10a39a9867ae6047b610ec77eadb023, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyBlockSound: {fileID: 8300000, guid: 282e0b85e4fbb834684df1d84160adc9, type: 3}
+  destroyBlockSound: {fileID: 8300000, guid: 9edb551105eb60f4b966884576617446, type: 3}
   blockSparklesVfx: {fileID: 100000, guid: 7d846c02296ef4dc4abff04ce3e5262c, type: 3}
   hitSprites: []
   timesHit: 0
